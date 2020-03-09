@@ -5,7 +5,6 @@ import org.json.JSONObject;
 
 import nicelee.bilibili.live.RoomDealer;
 import nicelee.bilibili.live.domain.RoomInfo;
-import nicelee.bilibili.util.Logger;
 
 public class RoomDealerBilibili extends RoomDealer{
 
@@ -30,7 +29,6 @@ public class RoomDealerBilibili extends RoomDealer{
 			// 获取基础信息
 			String basicInfoUrl = String.format("https://api.live.bilibili.com/room/v1/Room/get_info?id=%s&from=room", shortId);
 			String jsonStr = util.getContent(basicInfoUrl, headers.getBiliLiveJsonAPIHeaders(Long.parseLong(shortId)), null);
-			Logger.println(jsonStr);
 
 			JSONObject jObj = new JSONObject(jsonStr).getJSONObject("data");
 			roomInfo.setRoomId("" + jObj.getLong("room_id"));
@@ -60,7 +58,6 @@ public class RoomDealerBilibili extends RoomDealer{
 				roomInfo.setAcceptQuality(qn);
 				roomInfo.setAcceptQualityDesc(qnDesc);
 			}
-			roomInfo.print();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -79,8 +76,6 @@ public class RoomDealerBilibili extends RoomDealer{
 		String url = String.format("https://api.live.bilibili.com/room/v1/Room/playUrl?cid=%s&quality=%s&platform=web",
 				roomId, qn);
 		String jsonStr = util.getContent(url, headers.getBiliLiveJsonAPIHeaders(Long.parseLong(roomId)), null);
-		Logger.println(url);
-		Logger.println(jsonStr);
 		JSONObject obj = new JSONObject(jsonStr);
 		return obj;
 	}

@@ -8,7 +8,6 @@ import nicelee.bilibili.live.domain.RoomInfo;
 import nicelee.bilibili.util.HttpCookies;
 import nicelee.bilibili.util.HttpHeaders;
 import nicelee.bilibili.util.HttpRequestUtil;
-import nicelee.bilibili.util.Logger;
 
 public class RoomDealerKuaishou extends RoomDealer {
 
@@ -73,7 +72,6 @@ public class RoomDealerKuaishou extends RoomDealer {
 				roomInfo.setAcceptQualityDesc(qnDesc);
 			}
 
-			roomInfo.print();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -124,7 +122,6 @@ public class RoomDealerKuaishou extends RoomDealer {
 		util = new HttpRequestUtil();
 		String json = util.postContent("https://live.kuaishou.com/graphql",
 				new HttpHeaders().getKuaishouHeaders(roomId), param.toString(), HttpCookies.convertCookies(cookie));
-		Logger.println(json);
 		JSONObject obj = new JSONObject(json).getJSONObject("data").optJSONObject("userInfo");
 		return obj == null ? new JSONObject(): obj;
 	}
@@ -144,7 +141,6 @@ public class RoomDealerKuaishou extends RoomDealer {
 
 		String json = util.postContent(graphSqlUrl, headers.getKuaishouHeaders(roomId), param.toString(),
 				null);
-		Logger.println(json);
 		JSONObject obj = new JSONObject(json).getJSONObject("data").getJSONObject("liveDetail")
 				.getJSONObject("liveStream");
 		return obj;

@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
-import nicelee.bilibili.util.Logger;
-
 public class WssChecker {
 
 	public static void main(String[] args) throws IOException {
@@ -41,7 +39,6 @@ public class WssChecker {
 		}
 		rafNew.close();
 		raf.close();
-		Logger.println(pDuration);
 
 	}
 

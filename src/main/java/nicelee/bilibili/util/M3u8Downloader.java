@@ -65,8 +65,7 @@ public class M3u8Downloader{
 					if(!line.startsWith("http")) {
 						line = genABUrl(line, baseUrl[0]);
 					}
-					
-					Logger.println(line);
+
 					final String url = line;
 					final String fname = String.format("%s-%d.ts", fileName, taskCnt);
 					taskCnt ++;
@@ -101,12 +100,10 @@ public class M3u8Downloader{
 				if(line.startsWith("#EXT-X-STREAM-INF")) {
 					break;
 				}
-				Logger.println(line);
 				if(!line.startsWith("#") && !line.isEmpty()) {
 					// 如果是相对路径，补全
 					if(!line.startsWith("http")) {
 						line = genABUrl(line, baseUrl[0]);
-						Logger.println(line);
 						URL url = new URL(line);
 						this.download(new InputStreamReader(url.openStream()), fileName, headers, line);
 						break;
@@ -188,7 +185,6 @@ public void merge(File file, int lastIndex, boolean deleteFiles) {
 		Matcher matcher = tsPart.matcher(file.getName());
 		matcher.find();
 		String realName = matcher.group(1);
-		Logger.println(realName);
 		
 		RandomAccessFile dstFile = null;
 		try {

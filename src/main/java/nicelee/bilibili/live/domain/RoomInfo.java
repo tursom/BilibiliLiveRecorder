@@ -1,9 +1,6 @@
 package nicelee.bilibili.live.domain;
 
-import java.lang.reflect.Field;
-
 public class RoomInfo {
-
 	String shortId; // 直播url 里面的id， 可能与roomId相同
 	String roomId;
 	long userId;  // 主播id
@@ -24,28 +21,7 @@ public class RoomInfo {
 		}
 		return "0";
 	}
-	
-	public void print() {
-		System.out.println("当前Room信息:");
-		for(Field f :this.getClass().getDeclaredFields()) {
-			try {
-				if(f.getType() != String[].class && !f.getName().equals("remark")) {
-					System.out.print("\t");
-					System.out.println(f.getName() + "\t- " + f.get(this).toString());
-				}
-			} catch (NullPointerException | IllegalArgumentException | IllegalAccessException e) {
-				//e.printStackTrace();
-			}
-		}
-		if(acceptQuality != null) {
-			System.out.println("可提供直播质量:");
-			for(int i = 0; i < acceptQuality.length; i++) {
-				System.out.print("\t");
-				System.out.println(acceptQuality[i] + " : " + acceptQualityDesc[i]);
-			}
-		}
-	}
-	
+
 	public String getShortId() {
 		return shortId;
 	}

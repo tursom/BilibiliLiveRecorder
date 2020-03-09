@@ -7,7 +7,6 @@ import org.json.JSONObject;
 
 import nicelee.bilibili.live.RoomDealer;
 import nicelee.bilibili.live.domain.RoomInfo;
-import nicelee.bilibili.util.Logger;
 
 public class RoomDealerHuajiao extends RoomDealer {
 
@@ -57,8 +56,7 @@ public class RoomDealerHuajiao extends RoomDealer {
 //			}else {
 //				roomInfo.setLiveStatus(0);
 //			}
-			
-			roomInfo.print();
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.err.println("解析失败！！！");
@@ -87,9 +85,7 @@ public class RoomDealerHuajiao extends RoomDealer {
 			long time = System.currentTimeMillis();
 			String callback = "jsonp_" + time + "_" + (int)(rand * 100000);
 			String url = String.format(format, sn, uid, shortId, rand, time, callback);
-			Logger.println(url);
 			String response = util.getContent(url, headers.getHuajiaoHeaders(shortId));
-			Logger.println(response);
 			
 			matcher = Pattern.compile(callback + "\\((.*)\\);").matcher(response);
 			matcher.find();

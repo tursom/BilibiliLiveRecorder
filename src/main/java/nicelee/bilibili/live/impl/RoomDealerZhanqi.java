@@ -13,7 +13,6 @@ import org.json.JSONObject;
 import nicelee.bilibili.live.RoomDealer;
 import nicelee.bilibili.live.domain.RoomInfo;
 import nicelee.bilibili.util.HttpHeaders;
-import nicelee.bilibili.util.Logger;
 
 public class RoomDealerZhanqi extends RoomDealer{
 
@@ -43,7 +42,6 @@ public class RoomDealerZhanqi extends RoomDealer{
 			Pattern pJson = Pattern.compile("window.oPageConfig.oRoom =(.*?});");
 			Matcher matcher = pJson.matcher(html);
 			matcher.find();
-			Logger.println(matcher.group(1));
 			JSONObject jObj = new JSONObject(matcher.group(1));
 			
 			roomInfo.setRoomId(jObj.getString("id"));
@@ -64,7 +62,6 @@ public class RoomDealerZhanqi extends RoomDealer{
 				// 获取直播可提供的清晰度
 				String strBase64 = jObj.getJSONObject("flashvars").getString("h5Cdns");
 				String streams = new String(Base64.getDecoder().decode(strBase64));
-				Logger.println(streams);
 				jObj = new JSONObject(streams);
 				
 				JSONArray descAll = jObj.getJSONArray("rate");
@@ -93,7 +90,6 @@ public class RoomDealerZhanqi extends RoomDealer{
 					roomInfo.setAcceptQualityDesc(qnDesc);
 				}
 			}
-			roomInfo.print();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -168,7 +164,6 @@ public class RoomDealerZhanqi extends RoomDealer{
 		String json = util.postContent("https://www.zhanqi.tv/api/public/burglar/chain", 
 				new HttpHeaders().getZhanqiTokenHeaders(shortId, boundary, gid),
 				params.toString());
-		Logger.println(json);
 		return new JSONObject(json).getJSONObject("data").getString("key");
 	}
 	

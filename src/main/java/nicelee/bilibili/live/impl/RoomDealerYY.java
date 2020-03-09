@@ -10,7 +10,6 @@ import org.json.JSONObject;
 
 import nicelee.bilibili.live.RoomDealer;
 import nicelee.bilibili.live.domain.RoomInfo;
-import nicelee.bilibili.util.Logger;
 
 public class RoomDealerYY extends RoomDealer {
 
@@ -41,7 +40,6 @@ public class RoomDealerYY extends RoomDealer {
 			matcher.find();
 			String strJSON = matcher.group(1).replaceAll("decodeURIComponent\\(\"(.*?)\"\\)", "\"$1\"")
 					.replaceFirst("defaultQuality:.*?,", "");
-			Logger.println(strJSON);
 			JSONObject jObj = new JSONObject(strJSON);
 
 			roomInfo.setRoomId(shortId);
@@ -56,7 +54,6 @@ public class RoomDealerYY extends RoomDealer {
 			matcher = pJson.matcher(html);
 			if(matcher.find()) {
 				roomInfo.setLiveStatus(1);
-				Logger.println(matcher.group(1));
 				JSONObject livingStream = new JSONObject(matcher.group(1));
 				// livingStream.avp_payload.stream_names[0]
 				String currentQN = livingStream.getJSONObject("avp_payload").getJSONArray("stream_names").getString(0);
@@ -74,7 +71,6 @@ public class RoomDealerYY extends RoomDealer {
 					}
 				}
 			}
-			roomInfo.print();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -92,7 +88,6 @@ public class RoomDealerYY extends RoomDealer {
 			Pattern pJson = Pattern.compile("var livingStream = *(.*?});");
 			Matcher matcher = pJson.matcher(html);
 			matcher.find();
-			Logger.println(matcher.group(1));
 			JSONObject jObj = new JSONObject(matcher.group(1));
 			
 			StringBuilder sb = new StringBuilder();
@@ -113,7 +108,6 @@ public class RoomDealerYY extends RoomDealer {
 					break;
 				}
 			}
-			Logger.println(sb.toString());
 			return sb.toString();
 		} catch (
 

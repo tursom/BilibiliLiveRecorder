@@ -12,7 +12,6 @@ import nicelee.bilibili.live.RoomDealer;
 import nicelee.bilibili.live.domain.RoomInfo;
 import nicelee.bilibili.util.HttpCookies;
 import nicelee.bilibili.util.JSEngine;
-import nicelee.bilibili.util.Logger;
 
 public class RoomDealerDouyu extends RoomDealer {
 
@@ -118,7 +117,6 @@ public class RoomDealerDouyu extends RoomDealer {
 				roomInfo.setAcceptQuality(qn);
 				roomInfo.setAcceptQualityDesc(qnDesc);
 			}
-			roomInfo.print();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -155,9 +153,7 @@ public class RoomDealerDouyu extends RoomDealer {
 																				// [{"name":"主线路","cdn":"ws-h5"},{"name":"备用线路5","cdn":"tct-h5"},{"name":"备用线路6","cdn":"ali-h5"}]
 					qn, // rate 模糊到清晰 1，2，... 0 流畅 高清 超清 蓝光4M
 					version);
-			Logger.println(param);
 			String json = util.postContent(url, headers.getDouyuJsonAPIHeaders(Long.parseLong(roomId)), param, cookie);
-			Logger.println(json);
 
 			JSONObject jobj = new JSONObject(json);
 			return jobj;
@@ -190,7 +186,6 @@ public class RoomDealerDouyu extends RoomDealer {
 			String header = jobj.getJSONObject("data").getString("rtmp_url");
 			String tail = jobj.getJSONObject("data").getString("rtmp_live");
 			String linkURL = header + "/" + tail;
-			Logger.println("链接为：" + linkURL);
 			return linkURL;
 		} catch (Exception e) {
 			e.printStackTrace();

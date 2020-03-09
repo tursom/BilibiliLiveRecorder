@@ -376,7 +376,6 @@ public class HttpRequestUtil {
 				if (cookie.endsWith("; ")) {
 					cookie = cookie.substring(0, cookie.length() - 2);
 				}
-				Logger.println(cookie);
 				conn.setRequestProperty("Cookie", cookie);
 			}
 			conn.connect();

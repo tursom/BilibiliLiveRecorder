@@ -3,7 +3,6 @@ package nicelee.bilibili.live.impl;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -13,7 +12,6 @@ import org.json.JSONObject;
 
 import nicelee.bilibili.live.RoomDealer;
 import nicelee.bilibili.live.domain.RoomInfo;
-import nicelee.bilibili.util.Logger;
 import nicelee.bilibili.util.M3u8Downloader;
 
 public class RoomDealerHuya extends RoomDealer {
@@ -106,7 +104,6 @@ public class RoomDealerHuya extends RoomDealer {
 				roomInfo.setAcceptQuality(qn);
 				roomInfo.setAcceptQualityDesc(qnDesc);
 			}
-			roomInfo.print();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -145,7 +142,6 @@ public class RoomDealerHuya extends RoomDealer {
 			if(!"".equals(qn) && !"0".equals(qn)) {
 				url = url + "&ratio=" + qn;
 			}
-			Logger.println(url);
 			//Logger.println(obj.getJSONObject("stream").getInt("iWebDefaultBitRate"));
 			return url;
 		} catch (Exception e) {
@@ -181,7 +177,6 @@ public class RoomDealerHuya extends RoomDealer {
 	boolean downloadM3u8(String url, String fileName) {
 		String realUrl = null;
 		BufferedReader buReader = null;
-		Logger.println(url);
 		try {
 			buReader = new BufferedReader(new InputStreamReader(new URL(url).openStream()));
 			while ((realUrl = buReader.readLine()) != null) {
@@ -197,8 +192,7 @@ public class RoomDealerHuya extends RoomDealer {
 						continue;
 					}
 					lastSeqNo = currentSeqNo;
-					
-					Logger.println(realUrl);
+
 					// 如果是相对路径，补全
 					if (!realUrl.startsWith("http")) {
 						realUrl = M3u8Downloader.genABUrl(realUrl, url);
